@@ -77,6 +77,15 @@ target 'dxcCodeTest' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+
+  pod 'A0Auth0', :path => '../node_modules/react-native-auth0'
+
+  pod 'react-native-config', :path => '../node_modules/react-native-config'
+
+  pod 'react-native-sensitive-info', :path => '../node_modules/react-native-sensitive-info'
+
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
   target 'dxcCodeTestTests' do
     inherit! :complete
     # Pods for testing
