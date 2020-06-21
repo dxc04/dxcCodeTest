@@ -5,7 +5,7 @@ import Auth0 from 'react-native-auth0';
 import {getUniqueId} from 'react-native-device-info';
 import SInfo from 'react-native-sensitive-info';
 import RNRestart from 'react-native-restart';
-
+import HomeScreens from './HomeScreens';
 
 const auth0 = new Auth0({
   domain: AUTH0_DOMAIN,
@@ -22,9 +22,6 @@ class Login extends Component {
   };
 
   componentDidMount() {
-    if (this.props.route.params && this.props.route.params.logout) {
-      this.logoutUser;
-    }
     SInfo.getItem('accessToken', {}).then((accessToken: string) => {
       if (accessToken) {
         this.loginUser(accessToken, this.refreshAccessToken);
@@ -113,7 +110,10 @@ class Login extends Component {
   };
 
   goToHomePage = ({id, currentUser}) => {
-    this.props.navigation.navigate('Homescreens', {id, currentUser, auth0});
+    this.props.navigation.navigate('HomeScreens', {
+      screen: 'Settings',
+      params: {id, currentUser, auth0},
+    });
   };
 }
 

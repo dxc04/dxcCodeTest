@@ -29,11 +29,14 @@ class Router extends Component {
   render() {
     return (
       <Drawer.Navigator initialRouteName="LoginScreens">
-
+        {this.state.hasInitialized === false ? (
+        <>
           <Drawer.Screen key="LogScreens" name="LoginScreens" component={LoginScreens} />
-
           <Drawer.Screen key="HomeScreens" name="HomeScreens" component={HomeScreens} />
-
+        </>
+        ) : (
+          <Drawer.Screen key="HomeScreens" name="HomeScreens" component={HomeScreens} />
+        )}
       </Drawer.Navigator>
     );
   }
