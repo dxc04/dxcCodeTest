@@ -6,6 +6,7 @@ import {getUniqueId} from 'react-native-device-info';
 import SInfo from 'react-native-sensitive-info';
 import RNRestart from 'react-native-restart';
 
+
 const auth0 = new Auth0({
   domain: AUTH0_DOMAIN,
   clientId: AUTH0_CLIENT_ID,
@@ -21,6 +22,9 @@ class Login extends Component {
   };
 
   componentDidMount() {
+    if (this.props.route.params && this.props.route.params.logout) {
+      this.logoutUser;
+    }
     SInfo.getItem('accessToken', {}).then((accessToken: string) => {
       if (accessToken) {
         this.loginUser(accessToken, this.refreshAccessToken);
@@ -96,8 +100,20 @@ class Login extends Component {
     }
   };
 
+  logoutUser = async () => {
+    SInfo.deleteItem('accessToken', {});
+    SInfo.deleteItem('refreshToken', {});
+    try {
+      await this.props.route.params.auth0.webAuth.clearSession();
+    } catch (clearSessionError) {
+      console.log('error clearing session: ', clearSessionError);
+    }
+    Alert.alert('Logged out', 'You are now logged out');
+    this.props.navigation.navigate('Login');
+  };
+
   goToHomePage = ({id, currentUser}) => {
-    this.props.navigation.navigate('Account', {id, currentUser, auth0});
+    this.props.navigation.navigate('Homescreens', {id, currentUser, auth0});
   };
 }
 

@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import {YellowBox} from 'react-native';
-import Login from './containers/Login';
-import Account from './containers/Account';
-import Weather from './containers/Weather';
 import SInfo from 'react-native-sensitive-info';
 import {createDrawerNavigator} from '@react-navigation/drawer';
+import LoginScreens from './containers/LoginScreens';
+import HomeScreens from './containers/HomeScreens';
 
 YellowBox.ignoreWarnings(['Setting a timer']);
 
@@ -16,29 +15,25 @@ class Router extends Component {
   };
 
   componentDidMount() {
-    
     SInfo.getItem('accessToken', {}).then((accessToken: string) => {
       if (accessToken) {
         this.setState({
           hasInitialized: true,
         });
       } else {
-        this.props.navigation.navigate('Login');
+        this.props.navigation.navigate('LoginScreens');
       }
     });
   }
 
   render() {
     return (
-      <Drawer.Navigator initialRouteName="Login">
-        {this.state.hasInitialized === false ? (
-          <Drawer.Screen name="Login" component={Login} />
-        ) : (
-          <>
-            <Drawer.Screen name="Account" component={Account} />
-            <Drawer.Screen name="Weather" component={Weather} />
-          </>
-        )}
+      <Drawer.Navigator initialRouteName="LoginScreens">
+
+          <Drawer.Screen key="LogScreens" name="LoginScreens" component={LoginScreens} />
+
+          <Drawer.Screen key="HomeScreens" name="HomeScreens" component={HomeScreens} />
+
       </Drawer.Navigator>
     );
   }

@@ -12,14 +12,11 @@ export default class Account extends Component {
   };
 
   async componentDidMount() {
-    if (typeof this.props.route.params.currentUser === 'undefined') {
-      this.props.navigation.navigate('Login');
-    }
     Geolocation.getCurrentPosition(
       (position: any) => {
         this.setState(() => ({
           latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
+          longtitude: position.coords.longtitude,
         }));
       },
       (error: any) => {
@@ -35,22 +32,21 @@ export default class Account extends Component {
     );
   }
 
-  showLocation() {
-    this.setState(() => ({showLocation: true}));
-  }
-
   render() {
-    const loggedUser = this.props.route.params.currentUser;
+    const loggedUser =
+      typeof this.props.route.params !== 'undefined' ? this.props.route.params.currentUser : {};
 
     return (
       <View style={styles.container}>
         <Text>Hello {loggedUser.nickname}</Text>
         <Text>User: {loggedUser.name}</Text>
         <Text>Github Link: https://github.com/{loggedUser.nickname}</Text>
-        {!this.state.showLocation ? (
-          <Text>Lat Long: ({this.state.latitude}, this.state.longtitude)</Text>
+        {this.state.showLocation ? (
+          <Text>
+            Lat Long: ({this.state.latitude}, {this.state.longtitude})
+          </Text>
         ) : null}
-        <Button onPress={this.showLocation()} title="Show my location" />
+        {<Button onPress={() => this.setState({ showLocation: true })} title="Show my location" />}
       </View>
     );
   }
