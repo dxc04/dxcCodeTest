@@ -33,8 +33,8 @@ export default class Account extends Component {
   }
 
   render() {
-    const loggedUser =
-      typeof this.props.route.params !== 'undefined' ? this.props.route.params.currentUser : {};
+    console.log(this.props.route)
+    const loggedUser = typeof this.props.route.params !== 'undefined' ? this.props.route.params.currentUser : {};
 
     return (
       <View style={styles.container}>

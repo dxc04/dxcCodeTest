@@ -111,7 +111,7 @@ class Login extends Component {
 
   goToHomePage = ({id, currentUser}) => {
     this.props.navigation.navigate('HomeScreens', {
-      screen: 'Settings',
+      screen: 'Account',
       params: {id, currentUser, auth0},
     });
   };
